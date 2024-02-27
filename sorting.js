@@ -1,3 +1,4 @@
+const nums = [4, 2, 5, 6, 1, 77, 3, 6, 7, 2, 3];
 const bubbleSort = (nums) => {
   const n = nums.length;
   for (let i = 0; i < n; i++) {
@@ -37,4 +38,43 @@ const insertionSort = (nums) => {
   }
   return nums;
 };
-// console.log(insertionSort([4, 2, 5, 6, 1, 77, 3, 6, 7, 2, 3]));
+const kthMaxNum = (nums, k) => {
+  nums.sort((a, b) => a - b);
+  return nums[nums.length - k];
+};
+
+const mergeSort = (nums) => {
+  if (nums.length <= 1) return nums;
+  let mid = Math.floor(nums.length / 2);
+  let left = mergeSort(nums.slice(0, mid));
+  let right = mergeSort(nums.slice(mid));
+  return merge(left, right);
+};
+const merge = (left, right) => {
+  let sortedArr = [];
+  while (left.length && right.length) {
+    if (left[0] > right[0]) {
+      sortedArr.push(right.shift());
+    } else {
+      sortedArr.push(left.shift());
+    }
+  }
+  return [...sortedArr, ...left, ...right];
+};
+
+const quickSort = (nums) => {
+  if (nums.length <= 1) {
+    return nums;
+  }
+  let pivot = nums[0];
+  let left = [];
+  let right = [];
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] < pivot) {
+      left.push(nums[i]);
+    } else {
+      right.push(nums[i]);
+    }
+  }
+  return [...quickSort(left), pivot, ...quickSort(right)];
+};
